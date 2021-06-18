@@ -1,13 +1,22 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
-import { data } from "./data";
+// import { data } from "./data";
 
-const Test = () => {
+const Test = (props) => {
   const ref = useRef();
-  const links = data.links;
-  const nodes = data.nodes;
+//   const links = data.links;
+//   const nodes = data.nodes;
+const links = props.data.computer_science.links;
+const nodes = props.data.computer_science.nodes;
+    
+    
+   
 
   useEffect(() => {
+
+ 
+
+
     //create simulation
     const simulation = d3
       .forceSimulation(nodes)
@@ -15,40 +24,48 @@ const Test = () => {
         "link",
         d3.forceLink(links).id((d) => d.id)
       )
-      .force("charge", d3.forceManyBody().strength(-300))
-      .force("x", d3.forceX())
-      .force("y", d3.forceY());
+      .force("charge", d3.forceManyBody().strength(-200))
+      .force("x", d3.forceX(30))
+      .force("y", d3.forceY(10))
+      .force("collision", d3.forceCollide(50))
+    //   .force("center", d3.forceCenter(20, 200));
 
     const svg = d3.select(ref.current);
     let types = Array.from(new Set(links.map((d) => d.type)));
     let color = d3.scaleOrdinal(types, d3.schemeCategory10);
 
-    svg.attr("viewBox", [-300, -200, 600, 600]);
+    svg.attr("viewBox", [-300, -200, 800, 800]);
     svg
       .append("defs")
       .selectAll("marker")
       .data(types)
       .join("marker")
       .attr("id", "triangle")
-      .attr("viewBox", "0 -5 10 10")
-      .attr("refX", 15)
-      .attr("refY", -0.5)
+      .attr("refX", 6 + 7 + 8) // Controls the shift of the arrow head along the path
+      .attr("refY", 2)
       .attr("markerWidth", 6)
-      .attr("markerHeight", 6)
+      .attr("markerHeight", 4)
       .attr("orient", "auto")
       .append("path")
-      .attr("fill", color)
-      .attr("d", "M1,-5L10,0L0,5");
-   
+      .attr("d", "M 0,0 V 4 L6,2 Z")
+      .attr("fill", "black");
+    
+    //added marker 'defs' again so that when link is not active, arrow can be removed.
+      svg
+      .append("defs")
+      .selectAll("marker")
+      .data(types)
+      .join("marker")
+      .attr("id", "triangle-not-active")
+      .attr("refX", 6 + 7 + 8) // Controls the shift of the arrow head along the path
+      .attr("refY", 2)
+      .attr("markerWidth", 6)
+      .attr("markerHeight", 4)
+      .attr("orient", "auto")
+      .append("path")
+      .attr("d", "M 0,0 V 4 L6,2 Z")
+      .attr("fill", "white");
 
-    // this 'link' const can be used to address all links
-    //   const link = svg.append('g')
-    //     .attr("fill", "currentColor")
-    //     .attr("stroke-width", 1.5)
-    // .selectAll("path")
-    // .data(links)
-    // .join("path")
-    // .attr("marker-end", `url(#triangle)`);
 
     const link = svg
       .selectAll("line")
@@ -85,38 +102,41 @@ const Test = () => {
     };
 
     const isConnected = (singleNode, currentNode) => {
-        
-        return linkedByIndex[singleNode.index + "," + currentNode.index] 
-        
-       
-    }
+      return linkedByIndex[singleNode.index + "," + currentNode.index];
+    };
 
     var linkedByIndex = {};
-    links.forEach(function(d){
-        linkedByIndex[d.source.index + "," + d.target.index] = true;
+    links.forEach(function (d) {
+      linkedByIndex[d.source.index + "," + d.target.index] = true;
     });
-    console.log(linkedByIndex);
+   
 
     const nodeMouseOverHandler = (event) => {
-        let currentNode = event.target.__data__;
-        node
-            .style("opacity", function(singleNode){
-                
-                return isConnected(singleNode, currentNode) ? 1.0 : 0.2 
-            })
+      let currentNode = event.target.__data__;
+      node.style("opacity", function (singleNode) {
+        return isConnected(singleNode, currentNode) ? 1.0 : 0.2;
+      });
 
-            link
-            .transition(500)
-              .style("stroke-opacity", function(singleNode) {
-                return singleNode.source === currentNode || singleNode.target === currentNode ? 1 : 0.2;
-              })
+      link.transition(500)
+        .style("stroke-opacity", function (singleNode) {
+        // return singleNode.source === currentNode ? 1: 0.1;
+        return  singleNode.target === currentNode ? 1: 0.1;
+          
+      })
+        .attr("marker-end", function (singleNode) {
+            // return singleNode.source === currentNode ? 1: 0.1;
+            
+            return  singleNode.target === currentNode ? "url(#triangle": "url(#triangle-not-active)";
+              
+          })
 
     };
 
     const mouseOutFunction = () => {
-        node
-            .style("opacity", 1);
-    }
+      node.style("opacity", 1);
+      link.style("stroke-opacity", 1)
+        .attr("marker-end", "url(#triangle)")
+    };
 
     //this object can be used to address all nodes
     const node = svg
@@ -127,34 +147,33 @@ const Test = () => {
       .selectAll("g")
       .data(nodes)
       .join("g")
-      .call(drag(simulation))
-      
+      .call(drag(simulation));
 
     node
       .append("circle")
+      .attr("fill", "gray")
       .attr("stroke", "white")
       .attr("stroke-width", 1.5)
-      .attr("r", 4)
+      .attr("r", 12)
       .on("mouseover", nodeMouseOverHandler)
       .on("mouseout", mouseOutFunction);
 
-
-    
     //add text to the nodes
     node
       .append("text")
-      .text((d) => d.id) 
+      .attr("font-size", 8)
+      .style("font", "bold 8px sans-serif")
+      .text((d) => d.id)
+      .attr("text-anchor", "middle")
+      .style("pointer-events", "none")
       .clone(true)
       .lower()
       .attr("fill", "none")
       .attr("stroke", "white")
-      .attr("stroke-width", 3)
-      
-    
-    
+      .attr("stroke-width", 3);
 
     simulation.on("tick", () => {
-      console.log("ticking");
+     
       node.attr("transform", (d) => `translate(${d.x}, ${d.y})`);
       // link.attr("d", linkArc)
       link
@@ -163,15 +182,6 @@ const Test = () => {
         .attr("x2", (link) => link.target.x)
         .attr("y2", (link) => link.target.y);
     });
-
-    //   function to draw the links
-    //   function linkArc(d) {
-    //     const r = Math.hypot(d.target.x - d.source.x, d.target.y - d.source.y);
-    //     return `
-    //       M${d.source.x},${d.source.y}
-    //       A${r},${r} 0 0,1 ${d.target.x},${d.target.y}
-    //     `;
-    //   }
   }, []);
 
   return <svg ref={ref} />;
