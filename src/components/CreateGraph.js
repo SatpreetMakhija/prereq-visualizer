@@ -5,7 +5,7 @@ import React, { useEffect, useRef } from 'react';
 
 import { nodes, links, NODE_SIZE } from "./data";
 
-const MANY_BODY_STRENGTH = -10000;
+const MANY_BODY_STRENGTH = -3000;
 const CreateGraph = () => {
     
     const ref = useRef();
@@ -18,14 +18,15 @@ const CreateGraph = () => {
     useEffect(()=> {
         let simulation = d3.forceSimulation(nodes)
         .force("charge", d3.forceManyBody().strength(MANY_BODY_STRENGTH))
-        .force("link", d3.forceLink(links))
-        .force("center", d3.forceCenter(300, 200));
+        .force("link", d3.forceLink(links).distance(link => link.distance))
+        .force("center", d3.forceCenter(500, 300));
 
         const dragInteraction = d3.drag().on('drag', (event, node) => {
-            node.fx = event.x;
-            node.fy = event.y;
-            simulation.alpha(1);
+            node.x = event.x;
+            node.y = event.y;
+            // simulation.alpha(1);
             simulation.restart();
+
         });
 
 
@@ -38,8 +39,7 @@ const CreateGraph = () => {
 
         const svg = d3.select(ref.current);
         
-       
-
+        
         
         
         const lines = svg
@@ -51,16 +51,35 @@ const CreateGraph = () => {
         
         
         
+        const isConnected = (event, o) => {
+        }
         
-        
+        const mouseOverHandler = (event) => {
+            // let index = nodes.map( item => item.id).indexOf(event.target.id);
+            // console.log(index);
+            // let prereqForCurrentNode = links.filter(function (item){
+            //     console.log(item.source)
+            //     return item.index === index;
+            // });
+            
+            // console.log(prereqForCurrentNode);
+
+            console.log(nodes)
+            console.log(event.target)
+
+           
+
+        }
 
         const circles = svg
         .selectAll('circle')
         .data(nodes).enter()
         .append('circle')
         .attr('fill', 'gray')
+        .attr('id', node => node.id)
         .attr('r', NODE_SIZE)
-        .call(dragInteraction);
+        .call(dragInteraction)
+        .on("mouseover", mouseOverHandler);
         
 
         const text = svg
@@ -102,7 +121,7 @@ const CreateGraph = () => {
 
 
     return (
-        <svg id="main-container" width="960" height="600" ref={ref}/>
+        <svg id="main-container" width="100vw" height="100vh" ref={ref}/>
             
        
         

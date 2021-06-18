@@ -1,9 +1,9 @@
 import React from 'react';
 
 
-import CreateGraph from './components/CreateGraph';
+// import CreateGraph from './components/CreateGraph';
 import './App.css';
-
+import Test from './components/Test';
 
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
 
   return (
     <div className="App">
-     <CreateGraph />
+     <Test/>
     </div>
   );
 }
