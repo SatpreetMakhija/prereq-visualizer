@@ -1,10 +1,10 @@
 export let data = {
-    computer_science: {
+  computer_science: {
     //     nodes: [
     //         {id: "Microsoft"}, {id: "Amazon"}, {id: "HTC"}, {id: "Samsung"}, {id: "Apple"}, {id: "Motorola"},
     //         {id: "Nokia"}, {id: "Kodak"}, {id: "Barnes & Noble"}, {id: "Foxconn"}, {id: "Oracle"}, {id: "Google"},
     //         {id: "Inventec"}, {id: "LG"}, {id: "RIM"}, {id: "Sony"}, {id: "Qualcomm"}, {id: "Huawei"}, {id: "ZTE"},
-    //         {id: "Ericsson"}, 
+    //         {id: "Ericsson"},
     //         {id: "Introduction to Computer Programming"},
     //         { id: "Discrete Mathematics" },
     //   { id: "Probability & Statistics" },
@@ -23,7 +23,7 @@ export let data = {
     //   { id: "Blockchain & Cryptocurrencies" },
 
     //     ],
-    
+
     //     links: [
     //         {source: "Samsung", target: "Apple", type: "suit"},
     //         {source: "Motorola", target: "Apple", type: "suit"},
@@ -54,9 +54,8 @@ export let data = {
     //         {source: "Introduction to Computer Programming", target: "Probability & Statistics",type: "core"},
     //     ]
 
-
-            nodes: [
-      {id: "Introduction to Computer Programming"},
+    nodes: [
+      { id: "Introduction to Computer Programming" },
       { id: "Discrete Mathematics" },
       { id: "Probability & Statistics" },
       { id: "Computer Organization and Systems" },
@@ -225,14 +224,56 @@ export let data = {
         source: "Computer Security and Privacy",
         target: "Blockchain & Cryptocurrencies",
         type: "",
-      }
-    ]
+      },
+    ],
 
 
 
+  },
 
+  physics: {
+    nodes: [
+      { id: "Mathematical and Computational Toolkit" },
+      { id: "Physics Lab 1" },
+      { id: "Mathematical Physics" },
+      { id: "Classical Mechanics" },
+      { id: "Electricity & Magnetism in Light of Relativity" },
+      { id: "Physics Lab 2" },
+      { id: "Thermal Physics" },
+      { id: "Oscillations, Waves, and Optics" },
+      { id: "Quantum Mechanics" },
+      { id: "Physics Lab 3" },
+      { id: "The Physics of Matter" },
+      { id: "Physics Lab 4" },
+      { id: "Cosmology" },
+      { id: "Soft Matter Physics" },
+      { id: "Advanced Mathematical Physics" },
+      { id: "Advanced Quantum Mechanics and Statistical Mechanics" },
+      { id: "Advanced Classical Mechanics and Electrodynamics" },
+    ],
 
-    }
-    
-}
-
+    links: [
+      {
+        source: "Mathematical and Computational Toolkit",
+        target: "Mathematical Physics",
+      },
+      {
+        source: "Mathematical and Computational Toolkit",
+        target: "Classical Mechanics",
+      },
+      {
+        source: "Mathematical and Computational Toolkit",
+        target: "Electricity & Magnetism in Light of Relativity",
+      },
+      { source: "Physics Lab 1", target: "Physics Lab 2" },
+      { source: "Mathematical Physics", target: "Thermal Physics" },
+      {
+        source: "Mathematical Physics",
+        target: "Oscillations, Waves, and Optics",
+      },
+      { source: "Mathematical Physics", target: "Quantum Mechanics" },
+      { source: "Physics Lab 1", target: "Physics Lab 3" },
+      { source: "Physics Lab 1", target: "Physics Lab 4" },
+    ],
+  },
+};

@@ -1,21 +1,24 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import * as d3 from "d3";
 // import { data } from "./data";
 
 const Test = (props) => {
-  const ref = useRef();
+  // const ref = useRef();
+  // const [ref, setRef] = useState();
+  // console.log(ref);
 //   const links = data.links;
 //   const nodes = data.nodes;
-const links = props.data.computer_science.links;
-const nodes = props.data.computer_science.nodes;
+let links = props.data.links;
+let nodes = props.data.nodes;
     
-    
+    console.log(nodes);
    
 
   useEffect(() => {
 
- 
-
+    let svg = d3.select('#main-svg')
+    svg.selectAll("*").remove();
+    console.log("use effect called")
 
     //create simulation
     const simulation = d3
@@ -26,11 +29,11 @@ const nodes = props.data.computer_science.nodes;
       )
       .force("charge", d3.forceManyBody().strength(-200))
       .force("x", d3.forceX(30))
-      .force("y", d3.forceY(10))
+      .force("y", d3.forceY(100))
       .force("collision", d3.forceCollide(50))
     //   .force("center", d3.forceCenter(20, 200));
 
-    const svg = d3.select(ref.current);
+    svg = d3.select('#main-svg');
     let types = Array.from(new Set(links.map((d) => d.type)));
     let color = d3.scaleOrdinal(types, d3.schemeCategory10);
 
@@ -182,9 +185,9 @@ const nodes = props.data.computer_science.nodes;
         .attr("x2", (link) => link.target.x)
         .attr("y2", (link) => link.target.y);
     });
-  }, []);
+  }, [links, nodes]);
 
-  return <svg ref={ref} />;
+  return <svg id="main-svg" />;
 };
 
 export default Test;

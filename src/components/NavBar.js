@@ -10,15 +10,24 @@ const NavBar = () => {
   <Navbar.Collapse id="responsive-navbar-nav">
       <Nav className="mr-auto">
         <Nav.Link as={Link} to="/" className="nav-link">Home</Nav.Link>
-        <NavDropdown title="Select Major" id="collasible-nav-dropdown">
-      {/* <Link to="/" className="nav-link">Computer Science</Link> */}
-      <NavDropdown.Item as={Link} to="/computer-science">Computer Science</NavDropdown.Item>
+        {/* <Nav.Link as={Link} to="/computer-science">Computer Science</Nav.Link>
+      <Nav.Link as={Link} to="/physics">Physics</Nav.Link> */}
+        <NavDropdown title="Select Major" id="collasible-nav-dropdown"> 
+      <Link to="/" className="nav-link">Computer Science</Link>
+       <NavDropdown.Item as={Link} to="/computer-science">Computer Science</NavDropdown.Item>
+      <NavDropdown.Item as={Link} to="/physics">Physics</NavDropdown.Item> 
       </NavDropdown>
+      </Nav>
+
+      <Nav>
+        <Nav.Link href="https://www.ashoka.edu.in" className="nav-link" target="_blank">Ashoka</Nav.Link>
+        <Nav.Link href="https://www.lms.ashoka.edu.in" className="nav-link" target="_blank">LMS</Nav.Link>
+        <Nav.Link href="https://registration.ashoka.edu.in" className="nav-link" target="_blank">Registration Portal</Nav.Link>
       </Nav>
       
 
 
-    {/* <Nav className="mr-auto">
+   {/* <Nav className="mr-auto">
       <Nav.Link href="#features">Features</Nav.Link>
       <Nav.Link href="#pricing">Pricing</Nav.Link>
       <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
