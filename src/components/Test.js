@@ -37,7 +37,7 @@ let nodes = props.data.nodes;
     let types = Array.from(new Set(links.map((d) => d.type)));
     let color = d3.scaleOrdinal(types, d3.schemeCategory10);
 
-    svg.attr("viewBox", [-300, -200, 800, 800]);
+    svg.attr("viewBox", [-350, -200, 1000, 700]);
     svg
       .append("defs")
       .selectAll("marker")

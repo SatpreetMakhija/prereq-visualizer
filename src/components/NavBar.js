@@ -1,55 +1,52 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
-import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import React from "react";
+import { Link } from "react-router-dom";
+import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 
 const NavBar = () => {
-    return (
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-  {/* <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand> */}
-  <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-  <Navbar.Collapse id="responsive-navbar-nav">
-      <Nav className="mr-auto">
-        <Nav.Link as={Link} to="/" className="nav-link">Home</Nav.Link>
-        {/* <Nav.Link as={Link} to="/computer-science">Computer Science</Nav.Link>
-      <Nav.Link as={Link} to="/physics">Physics</Nav.Link> */}
-        <NavDropdown title="Select Major" id="collasible-nav-dropdown"> 
-      <Link to="/" className="nav-link">Computer Science</Link>
-       <NavDropdown.Item as={Link} to="/computer-science">Computer Science</NavDropdown.Item>
-      <NavDropdown.Item as={Link} to="/physics">Physics</NavDropdown.Item> 
-      </NavDropdown>
-      </Nav>
+  return (
+    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+      <Navbar.Collapse id="responsive-navbar-nav">
+        <Nav className="mr-auto">
+          <Nav.Link as={Link} to="/" className="nav-link">
+            Home
+          </Nav.Link>
+          <NavDropdown title="Select Major" id="collasible-nav-dropdown">
+            <NavDropdown.Item as={Link} to="/computer-science">
+              Computer Science
+            </NavDropdown.Item>
+            <NavDropdown.Item as={Link} to="/physics">
+              Physics
+            </NavDropdown.Item>
+          </NavDropdown>
+        </Nav>
 
-      <Nav>
-        <Nav.Link href="https://www.ashoka.edu.in" className="nav-link" target="_blank">Ashoka</Nav.Link>
-        <Nav.Link href="https://www.lms.ashoka.edu.in" className="nav-link" target="_blank">LMS</Nav.Link>
-        <Nav.Link href="https://registration.ashoka.edu.in" className="nav-link" target="_blank">Registration Portal</Nav.Link>
-      </Nav>
-      
-
-
-   {/* <Nav className="mr-auto">
-      <Nav.Link href="#features">Features</Nav.Link>
-      <Nav.Link href="#pricing">Pricing</Nav.Link>
-      <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-        <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-        <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-        <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-        <NavDropdown.Divider />
-        <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-      </NavDropdown>
-    </Nav>
-    <Nav>
-      <Nav.Link href="#deets">More deets</Nav.Link>
-      <Nav.Link eventKey={2} href="#memes">
-        Dank memes
-      </Nav.Link>
-    </Nav> */}
-  </Navbar.Collapse>
-</Navbar>
-
-    )
-
-
-}
+        <Nav>
+          <Nav.Link
+            href="https://www.ashoka.edu.in"
+            className="nav-link"
+            target="_blank"
+          >
+            Ashoka
+          </Nav.Link>
+          <Nav.Link
+            href="https://lms.ashoka.edu.in"
+            className="nav-link"
+            target="_blank"
+          >
+            LMS
+          </Nav.Link>
+          <Nav.Link
+            href="https://registration.ashoka.edu.in"
+            className="nav-link"
+            target="_blank"
+          >
+            Registration Portal
+          </Nav.Link>
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
+  );
+};
 
 export default NavBar;

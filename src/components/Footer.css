@@ -1,14 +1,15 @@
+/* Card {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+} */
+
 .footer-container {
-    
+    text-align: center; 
     position: fixed;
+    margin-top: -200px;
     bottom: 0;
     width: 100%;
 
+
 }
-/* .footer {
-    text-align: center;
-    display: block;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}  */

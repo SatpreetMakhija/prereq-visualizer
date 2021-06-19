@@ -8,10 +8,10 @@ import {
 import "bootstrap/dist/css/bootstrap.min.css";
 // import CreateGraph from './components/CreateGraph';
 // import './App.css';
+import Home from "./components/Home";
 import NavBar from "./components/NavBar";
 import Test from "./components/Test";
 import { data } from "./components/data";
-import Extra from "./components/Extra";
 import Footer from "./components/Footer";
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
         <NavBar />
         <Switch>
           <Route exact path="/">
-            <h1>Welcome to Prerequisites visualiser.</h1>
+            <Home/>
           </Route>
 
           <Route exact path="/computer-science">
@@ -30,7 +30,7 @@ function App() {
 
           <Route exact path="/physics">
             <Test data={data.physics} />
-            {/* <Extra/> */}
+            
           </Route>
         </Switch>
         <Footer />
